@@ -5,6 +5,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import authRouter from "./router/authRoutes.js";
 import candidatesRouter from "./router/candidatesRoutes.js";
+import router from "./router/router.js";
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use(express.static("public"));
 app.use("/uploads", express.static("uploads"));
 app.use("/auth", authRouter);
 app.use("/candidates", candidatesRouter);
+app.use("/admin", router);
 
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);
