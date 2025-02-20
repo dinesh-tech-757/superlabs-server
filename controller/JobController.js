@@ -69,7 +69,7 @@ const deleteJobPost = async (req, res) => {
   }
 };
 
-const updatJobPost = async (req, res) => {
+const updateJobPost = async (req, res) => {
   try {
     const {
       job_title,
@@ -156,6 +156,6 @@ export {
   getAllJobPost,
   postJob,
   deleteJobPost,
-  updatJobPost,
+  updateJobPost,
   getSingleJobPost,
 };
