@@ -1,12 +1,12 @@
 import pkg from "pg";
 const { Client } = pkg;
-import dotenv from "dotenv";
+import dotenv from "dotenv"
 dotenv.config();
 
 const client = new Client({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
-  port: parseInt(process.env.DB_PORT, 10),
+  port: process.env.DB_PORT,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
 });
