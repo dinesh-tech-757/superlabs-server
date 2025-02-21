@@ -126,6 +126,7 @@ router.get('/home', verifyToken, async (req, res) => {
 // Forgot Password Route
 router.post("/forgot-password", async (req, res) => {
     const { email } = req.body;
+    console.log(req.body)
 
     if (!email) {
         return res.status(400).json({ message: "Email is required" });
@@ -163,7 +164,7 @@ router.post("/forgot-password", async (req, res) => {
             subject: "Password Reset",
             text: `You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n
                    Please click on the following link, or paste this into your browser to complete the process:\n\n
-                   http://${req.headers.host}/reset-password/${resetToken}\n\n
+                   https://jobadmin.ashwinsrivastava.com/reset-password/${resetToken}\n\n
                    If you did not request this, please ignore this email and your password will remain unchanged.\n`,
         };
 
