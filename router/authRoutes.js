@@ -347,6 +347,7 @@ router.post("/forgot-password", async (req, res) => {
         res.status(200).json({ message: "Password reset email sent" });
     } catch (error) {
         console.error("Error in forgot-password route:", error.message);
+        console.error("Stack trace:", error.stack);
         res.status(500).json({ error: "Internal Server Error" });
     }
 });
