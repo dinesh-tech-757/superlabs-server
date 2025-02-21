@@ -253,8 +253,58 @@ router.get('/home', verifyToken, async (req, res) => {
 });
 
 // Forgot Password Route
+// router.post("/forgot-password", async (req, res) => {
+//     const { email } = req.body;
+
+//     try {
+//         // Check if user exists
+//         const { rows: user } = await client.query("SELECT * FROM users WHERE email = $1", [email]);
+//         if (user.length === 0) {
+//             return res.status(404).json({ message: "User does not exist" });
+//         }
+
+//         // Generate reset token
+//         const resetToken = crypto.randomBytes(32).toString("hex");
+//         const resetTokenExpiry = Date.now() + 60 * 60 * 1000; // 1 hour
+
+//         // Save token and expiry to user record
+//         await client.query(
+//             "UPDATE users SET reset_token = $1, reset_token_expiry = $2 WHERE email = $3",
+//             [resetToken, resetTokenExpiry, email]
+//         );
+
+//         // Send email with reset link
+//         const transporter = nodemailer.createTransport({
+//             service: "Gmail",
+//             auth: {
+//                 user: process.env.EMAIL_USER,
+//                 pass: process.env.EMAIL_PASS,
+//             },
+//         });
+
+//         const mailOptions = {
+//             to: email,
+//             from: process.env.EMAIL_USER,
+//             subject: "Password Reset",
+//             text: `You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n
+//                    Please click on the following link, or paste this into your browser to complete the process:\n\n
+//                    http://${req.headers.host}/reset-password/${resetToken}\n\n
+//                    If you did not request this, please ignore this email and your password will remain unchanged.\n`,
+//         };
+
+//         await transporter.sendMail(mailOptions);
+
+//         res.status(200).json({ message: "Password reset email sent" });
+//     } catch (error) {
+//         res.status(500).json({ error: error.message });
+//     }
+// });
 router.post("/forgot-password", async (req, res) => {
     const { email } = req.body;
+
+    if (!email) {
+        return res.status(400).json({ message: "Email is required" });
+    }
 
     try {
         // Check if user exists
@@ -265,7 +315,7 @@ router.post("/forgot-password", async (req, res) => {
 
         // Generate reset token
         const resetToken = crypto.randomBytes(32).toString("hex");
-        const resetTokenExpiry = Date.now() + 3600000; // 1 hour
+        const resetTokenExpiry = Date.now() + 60 * 60 * 1000; // 1 hour
 
         // Save token and expiry to user record
         await client.query(
@@ -296,7 +346,8 @@ router.post("/forgot-password", async (req, res) => {
 
         res.status(200).json({ message: "Password reset email sent" });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        console.error("Error in forgot-password route:", error.message);
+        res.status(500).json({ error: "Internal Server Error" });
     }
 });
 
