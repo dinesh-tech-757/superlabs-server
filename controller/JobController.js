@@ -105,7 +105,7 @@ const updateJobPost = async (req, res) => {
             job_budget=$11,
             job_create_date=$12,  
             job_close_date=$13,  
-            job_status=$14,
+            job_status=$14
             WHERE job_id = $15 
             RETURNING *`,
       [
