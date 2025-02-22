@@ -123,10 +123,8 @@ router.get('/home', verifyToken, async (req, res) => {
     }
 });
 
-// Forgot Password Route
 router.post("/forgot-password", async (req, res) => {
     const { email } = req.body;
-    console.log(req.body)
 
     if (!email) {
         return res.status(400).json({ message: "Email is required" });
@@ -179,8 +177,9 @@ router.post("/forgot-password", async (req, res) => {
 });
 
 // Reset Password Route
-router.post("/reset-password", async (req, res) => {
-    const { token, password } = req.body;
+router.post("/reset-password/:token", async (req, res) => {
+    const { token } = req.params;
+    const { password } = req.body;
 
     try {
         // Find user by reset token and check if token is still valid

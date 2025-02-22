@@ -105,6 +105,7 @@ export const addCandidates = [
     }
 ];
 
+
 // GET: Fetch all candidates
 export const getAllCandidates = async (req, res) => {
     try {
