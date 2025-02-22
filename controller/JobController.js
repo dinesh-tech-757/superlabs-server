@@ -86,7 +86,6 @@ const updateJobPost = async (req, res) => {
       job_create_date,
       job_close_date,
       job_status,
-      job_created_by,
     } = req.body;
 
     const { id } = req.params;
@@ -107,7 +106,6 @@ const updateJobPost = async (req, res) => {
             job_create_date=$12,  
             job_close_date=$13,  
             job_status=$14,
-            job_created_by=$15,
             WHERE job_id = $16 
             RETURNING *`,
       [
@@ -125,7 +123,6 @@ const updateJobPost = async (req, res) => {
         job_create_date,
         job_close_date,
         job_status,
-        job_created_by,
         id,
       ]
     );
